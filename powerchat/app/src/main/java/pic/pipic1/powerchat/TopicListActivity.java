@@ -49,4 +49,5 @@ public class TopicListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
