@@ -1,4 +1,4 @@
-package pic.pipic1.powerchat;
+package testun.android.projet.myapplication;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -49,5 +49,4 @@ public class TopicListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
