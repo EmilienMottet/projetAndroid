@@ -3,4 +3,5 @@
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#009688</color>
     <color name="colorAccent">#ff3d00</color>
+    <color name="btn_send_color">#76ff03</color>
 </resources>
