@@ -18,6 +18,11 @@ import android.view.MenuItem;
 
 import pic.pipic1.powerchat.R;
 
+/*
+powerchat.em.pp.iut
+powerchatiut
+ */
+
 public class TopicListActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;

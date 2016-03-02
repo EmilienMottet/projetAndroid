@@ -4,12 +4,12 @@
         <!-- on peut mettre des icones assez facilement-->
         <item
             android:id="@+id/nav_first_fragment"
-            android:title="First" />
+            android:title="Se connecter" />
         <item
             android:id="@+id/nav_second_fragment"
-            android:title="Second" />
+            android:title="Se déconnecter" />
         <item
             android:id="@+id/nav_third_fragment"
-            android:title="Third" />
+            android:title="Contact" />
     </group>
 </menu>
