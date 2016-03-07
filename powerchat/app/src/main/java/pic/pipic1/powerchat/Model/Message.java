@@ -7,12 +7,11 @@ import java.util.Date;
  */
 public abstract class Message {
     private Date sendDate;
-    private boolean isMe;
+    private User sender;
     private long id;
 
-    public Message(long id, boolean isMe, Date sendDate) {
+    public Message(long id, Date sendDate) {
         this.id = id;
-        this.isMe = isMe;
         this.sendDate = sendDate;
     }
 
@@ -22,5 +21,10 @@ public abstract class Message {
 
     public Date getSendDate() {
         return sendDate;
+    }
+
+    public boolean isMe(){
+        //Obtenir l'utilisateur connécté
+        return false;
     }
 }

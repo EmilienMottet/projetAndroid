@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:background="@color/material_grey_100">
+        android:background="@android:color/background_light">
 
         <EditText
             android:layout_width="wrap_content"
@@ -21,12 +21,12 @@
             android:hint="Type your message..." />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="35dp"
             android:layout_margin="4dp"
-            android:background="@color/btn_send_color"
-            android:text="@string/send_btn"
+            android:background="@color/colorPrimary"
             android:textColor="@color/abc_primary_text_material_dark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:foreground="@drawable/ic_send_white_48dp"/>
     </LinearLayout>
 </LinearLayout>
