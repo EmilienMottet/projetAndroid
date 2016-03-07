@@ -26,9 +26,15 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
             super(v);
             mView = v;
         }
-        private void setSujet(Sujet s){
+        private void setSujet(final Sujet s){
             ((TextView)mView.findViewById(R.id.sujettitre)).setText(s.getTitre());
             ((TextView)mView.findViewById(R.id.sujetdescription)).setText(s.getDescription());
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("onClick","on a cliqueez sur : "+s.getTitre());
+                }
+            });
         }
     }
 

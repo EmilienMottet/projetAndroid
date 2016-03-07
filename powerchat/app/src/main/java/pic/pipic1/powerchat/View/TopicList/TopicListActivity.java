@@ -82,6 +82,7 @@ public class TopicListActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    //useless pour le moment mais je laisse au cas si on travail plus sur les menus dispo a gauche
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
