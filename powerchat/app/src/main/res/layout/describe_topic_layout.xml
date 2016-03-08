@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/sujettitre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Text Titre"
+        android:textAllCaps="true"
+        android:textSize="@dimen/titre"
+        />
+
+    <TextView
+        android:textSize="@dimen/desc"
+        android:id="@+id/sujetdescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Text Description"
+        />
+
+</LinearLayout>

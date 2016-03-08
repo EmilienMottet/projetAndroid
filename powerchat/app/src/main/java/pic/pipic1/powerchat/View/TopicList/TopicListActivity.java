@@ -8,11 +8,13 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,15 +40,27 @@ public class TopicListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_topic_list);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        
         // Setup drawer view
         setupDrawerContent(nvDrawer);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
 
+
         mDrawer.setDrawerListener(drawerToggle);
+
+        ListTopicFragment listTopicFragment = new ListTopicFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.accueil_topic, listTopicFragment, "fragmentListTopic");
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -69,6 +83,7 @@ public class TopicListActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    //useless pour le moment mais je laisse au cas si on travail plus sur les menus dispo a gauche
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
