@@ -23,26 +23,41 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
     private List<Sujet> sujetList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView mTitre;
+        private TextView mDesc;
+
         private View mView;
         public ViewHolder(View v){
             super(v);
             mView = v;
+            mTitre = ((TextView)mView.findViewById(R.id.sujettitre));
+            mDesc = ((TextView)mView.findViewById(R.id.sujetdescription));
         }
-        private void setSujet(final Sujet s){
-            ((TextView)mView.findViewById(R.id.sujettitre)).setText(s.getTitre());
-            ((TextView)mView.findViewById(R.id.sujetdescription)).setText(s.getDescription());
-            mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("onClick","on a cliqueez sur : "+s.getTitre());
-                    Intent intent = new Intent(v.getContext(), DiscussionActivity.class);
-//                    intent.putExtra("SujetAAfficher",s);
-                    v.getContext().startActivity(intent);
-                }
-            });
+
+  /*      public TextView getmDesc() {
+            return mDesc;
         }
+
+        public TextView getmTitre() {
+            return mTitre;
+        }*/
+
     }
 
+    private void setSujet(final Sujet s, ViewHolder vh){
+        vh.mTitre.setText(s.getTitre());
+        vh.mDesc.setText(s.getDescription());
+        vh.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("onClick","on a cliqueez sur : "+s.getTitre());
+                Intent intent = new Intent(v.getContext(), DiscussionActivity.class);
+//                    intent.putExtra("SujetAAfficher",s);
+                v.getContext().startActivity(intent);
+            }
+        });
+    }
 
 
     public SujetAdapter(List<Sujet> sujets){
@@ -57,7 +72,7 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setSujet(sujetList.get(position));
+        setSujet(sujetList.get(position),holder);
     }
 
     @Override
