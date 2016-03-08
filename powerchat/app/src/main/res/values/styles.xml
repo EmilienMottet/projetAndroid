@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!-- si on veut un effet de transparence il faut l'api 19 -->
-        <!-- <item name="android:windowTranslucentStatus">true</item> -->
+       <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">
