@@ -8,14 +8,17 @@ import java.util.Date;
 public abstract class Message {
     private Date sendDate;
     private User sender;
-    private long id;
 
-    public Message(long id, Date sendDate) {
-        this.id = id;
-        this.sendDate = sendDate;
+    @SuppressWarnings("unused")
+    protected Message(){}
+
+
+    public Message(Date send_date, User user) {
+        this.sender = user;
+        this.sendDate = send_date;
     }
 
-    public Message(Date sendDate) {
+    private Message(Date sendDate) {
         this.sendDate = sendDate;
     }
 
@@ -23,8 +26,6 @@ public abstract class Message {
         return sendDate;
     }
 
-    public boolean isMe(){
-        //Obtenir l'utilisateur connécté
-        return false;
-    }
+    public User getSender() { return sender; }
+
 }

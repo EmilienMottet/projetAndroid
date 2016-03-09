@@ -9,8 +9,12 @@ import java.util.Date;
 public class MessageText extends Message {
     private String message;
 
-    public MessageText(String message, Date sendDate) {
-        super(Calendar.getInstance().getTime());
+
+    @SuppressWarnings("unused")
+    private MessageText(){}
+
+    public MessageText(String message, Date sendDate,User user) {
+        super(Calendar.getInstance().getTime(),user);
         this.message = message;
     }
 
