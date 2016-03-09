@@ -56,12 +56,12 @@ public class ListTopicFragment extends Fragment{
 
 
 
-        //sujetList.get(1).addMessage(new MessageText("Le premier message du sujet 1"));
-        //sujetList.get(1).addMessage(new MessageText("Le second message du sujet 1"));
-       // sujetList.get(1).addMessage(new MessageText("Le troisieme message du sujet 1"));
-        //sujetList.get(1).addMessage(new MessageText("Le quatrième message du sujet 1"));
-        //sujetList.get(1).addMessage(new MessageText("Le cinquieme message du sujet 1"));
-        //sujetList.get(1).addMessage(new MessageText("Le sixieme message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le premier message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le second message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le troisieme message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le quatrième message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le cinquieme message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le sixieme message du sujet 1"));
 
 
         // use this setting to improve performance if you know that changes

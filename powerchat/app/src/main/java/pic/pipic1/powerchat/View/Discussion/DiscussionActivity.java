@@ -35,6 +35,8 @@ public class DiscussionActivity extends AppCompatActivity {
         toolbar.setTitle(sujet.getTitre());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
         recyclerView.setAdapter(new DiscussionAdapter(sujet.getMessages()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
