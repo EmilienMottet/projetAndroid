@@ -24,6 +24,7 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private View mView;
+
         public ViewHolder(View v){
             super(v);
             mView = v;
@@ -36,7 +37,7 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
                 public void onClick(View v) {
                     Log.i("onClick","on a cliqueez sur : "+s.getTitre());
                     Intent intent = new Intent(v.getContext(), DiscussionActivity.class);
-//                    intent.putExtra("SujetAAfficher",s);
+                    intent.putExtra("Subject",s);
                     v.getContext().startActivity(intent);
                 }
             });

@@ -1,16 +1,17 @@
 package pic.pipic1.powerchat.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by ppier on 02/03/2016.
  */
-public abstract class Message {
+public abstract class Message implements Serializable {
     private Date sendDate;
     private User sender;
 
     @SuppressWarnings("unused")
-    protected Message(){}
+    public Message(){}
 
 
     public Message(Date send_date, User user) {
@@ -18,9 +19,7 @@ public abstract class Message {
         this.sendDate = send_date;
     }
 
-    private Message(Date sendDate) {
-        this.sendDate = sendDate;
-    }
+    public abstract String getMessage();
 
     public Date getSendDate() {
         return sendDate;
