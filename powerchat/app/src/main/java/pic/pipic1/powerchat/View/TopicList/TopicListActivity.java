@@ -1,5 +1,6 @@
 package pic.pipic1.powerchat.View.TopicList;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

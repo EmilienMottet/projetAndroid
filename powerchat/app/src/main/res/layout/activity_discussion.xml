@@ -1,67 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_layout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="pic.pipic1.powerchat.View.Discussion.DiscussionActivity">
+    android:orientation="vertical"
+    tools:context=".View.Discussion.DiscussionActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:background="@drawable/back">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_discussion" /> <LinearLayout
-    android:gravity="bottom"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_gravity="bottom"
-    android:background="@android:color/background_light">
-
-    <Button
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        />
-
-    <EditText
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:layout_margin="8dp"
-        android:hint="Type your message..." />
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:elevation="10dp"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="?attr/colorPrimaryDark" />
 
-    <Button
-        android:layout_width="48dp"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/abc_primary_text_material_dark"
-        android:textSize="20sp"
-        android:foreground="@drawable/ic_send_white_48dp"/>
-</LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/senderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:elevation="10dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/relativeLayout"
+            android:background="@color/white"
+            android:layout_below="@id/toolbar"
+            android:layout_gravity="bottom">
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:hint="@string/tb_text"
+                android:layout_margin="10dp"
+                android:background="#ffffff" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageButton"
+                android:src="@drawable/ic_send_black_48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                android:layout_margin="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_insert_emoticon_black_36dp"
+                    android:scaleType="fitXY"
+                    android:background="@color/white"
+                    android:layout_margin="5dp"
+                    android:clickable="false" />
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_photo_black_24dp"
+                    android:scaleType="fitXY"
+                    android:background="@color/white"
+                    android:layout_margin="5dp"/>
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_attach_file_black_36dp"
+                    android:scaleType="fitXY"
+                    android:background="@color/white"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,30 +1,30 @@
 package pic.pipic1.powerchat.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by ppier on 02/03/2016.
  */
-public abstract class Message {
+public abstract class Message implements Serializable {
     private Date sendDate;
     private User sender;
-    private long id;
 
-    public Message(long id, Date sendDate) {
-        this.id = id;
-        this.sendDate = sendDate;
+    @SuppressWarnings("unused")
+    public Message(){}
+
+
+    public Message(Date send_date, User user) {
+        this.sender = user;
+        this.sendDate = send_date;
     }
 
-    public Message(Date sendDate) {
-        this.sendDate = sendDate;
-    }
+    public abstract String getMessage();
 
     public Date getSendDate() {
         return sendDate;
     }
 
-    public boolean isMe(){
-        //Obtenir l'utilisateur connécté
-        return false;
-    }
+    public User getSender() { return sender; }
+
 }

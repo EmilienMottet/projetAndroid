@@ -3,5 +3,8 @@
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#009688</color>
     <color name="colorAccent">#ff3d00</color>
-    <color name="btn_send_color">#76ff03</color>
+    <color name="colorSecondary">#eceff1</color>
+    <color name="colorSecondaryDark">#cfd8dc</color>
+    <color name="bubbleColorBack">#cfd8dc</color>
+    <color name="white">#ffffff</color>
 </resources>

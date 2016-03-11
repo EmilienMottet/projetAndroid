@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import pic.pipic1.powerchat.Model.MessageText;
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 import pic.pipic1.powerchat.View.Adapter.SujetAdapter;
@@ -46,13 +47,21 @@ public class ListTopicFragment extends Fragment{
         add(new Sujet("Sujet 17","sujet test voici une courte description"));
         add(new Sujet("Sujet 18","sujet test voici une courte description"));
         add(new Sujet("Sujet 19","sujet test voici une courte description"));}};
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmentlisttopic,null);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+
+
+
+        sujetList.get(1).addMessage(new MessageText("Le premier message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le second message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le troisieme message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le quatrième message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le cinquieme message du sujet 1"));
+        sujetList.get(1).addMessage(new MessageText("Le sixieme message du sujet 1"));
 
 
         // use this setting to improve performance if you know that changes
