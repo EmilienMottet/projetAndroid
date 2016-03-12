@@ -39,19 +39,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
         }
 
 
-<<<<<<< HEAD
-        private void setMessage(final Message message){
-            ((TextView)messageView.findViewById(R.id.message)).setText(message.getMessage());
-            ((TextView)messageView.findViewById(R.id.dateSingleMessage)).setText(DateFormat.format("dd MMMM à hh:mm", message.getSendDate()));
-            //Snackbar??
-        }
-=======
     }
 
     private void setMessage(Message message, ViewHolder vh){
         vh.message.setText(message.getMessage());
         vh.date.setText(message.getSendDate().toString());
->>>>>>> f7daa26b9f5871b08cf9e7eb6178ed3251d78c5c
     }
 
     public DiscussionAdapter(List<Message> messages){

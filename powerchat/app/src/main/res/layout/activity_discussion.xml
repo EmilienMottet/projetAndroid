@@ -18,55 +18,38 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="?attr/colorPrimaryDark" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/message_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar" />
+    <!--<View-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@android:color/holo_red_dark" />-->
 
-    <LinearLayout
-        android:id="@+id/senderLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:elevation="10dp"
             android:layout_alignParentBottom="true"
-            android:id="@+id/relativeLayout"
-            android:background="@color/white"
-            android:layout_below="@id/toolbar"
-            android:layout_gravity="bottom">
-
+            android:id="@+id/senderLayout"
+            android:background="@color/white">
 
             <EditText
+                android:id="@+id/editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:hint="@string/tb_text"
                 android:layout_margin="10dp"
-                android:background="#ffffff" />
+                android:background="@color/white"/>
 
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/imageButton"
-                android:src="@drawable/ic_send_black_48dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:background="@color/white"
-                android:scaleType="fitXY"
-                android:layout_margin="10dp"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
+                android:background="@color/white"
                 android:paddingLeft="10dp">
                 <ImageButton
                     android:layout_width="25dp"
@@ -90,11 +73,28 @@
                     android:scaleType="fitXY"
                     android:background="@color/white"
                     android:layout_margin="5dp"/>
+
             </LinearLayout>
-
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageButton"
+                android:src="@drawable/ic_send_black_48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                android:layout_margin="10dp"/>
         </RelativeLayout>
-    </LinearLayout>
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@id/senderLayout"
+        android:background="@color/colorSecondary"/>
 
 </RelativeLayout>
