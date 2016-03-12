@@ -2,6 +2,7 @@ package pic.pipic1.powerchat.View.Adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
 
         private void setMessage(final Message message){
             ((TextView)messageView.findViewById(R.id.message)).setText(message.getMessage());
-            ((TextView)messageView.findViewById(R.id.dateSingleMessage)).setText(message.getSendDate().toString());
+            ((TextView)messageView.findViewById(R.id.dateSingleMessage)).setText(DateFormat.format("dd MMMM à hh:mm", message.getSendDate()));
             //Snackbar??
         }
     }
