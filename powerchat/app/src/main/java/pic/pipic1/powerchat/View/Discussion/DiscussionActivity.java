@@ -32,13 +32,16 @@ public class DiscussionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_discussion);
         sujet = (Sujet) getIntent().getSerializableExtra("Subject");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(sujet.getTitre());
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
+
+        if(sujet != null){
+            toolbar.setTitle(sujet.getTitre());
+            recyclerView.setAdapter(new DiscussionAdapter(sujet.getMessages()));
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
-        recyclerView.setAdapter(new DiscussionAdapter(sujet.getMessages()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
