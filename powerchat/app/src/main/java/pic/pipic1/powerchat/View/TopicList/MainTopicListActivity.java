@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseRecyclerAdapter;
@@ -23,6 +24,7 @@ import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
 
+import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 
 /**
@@ -34,15 +36,13 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
     private Firebase mRef;
     private Query mChatRef;
     private String mName;
-    private Button mSendButton;
-    private EditText mMessageEdit;
 
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
-    private RecyclerView mMessages;
+    private ListTopicFragment listTopicFragment;
 //    private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
 
 
@@ -67,7 +67,8 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
 
 
 
-        ListTopicFragment listTopicFragment = new ListTopicFragment();
+        listTopicFragment = new ListTopicFragment();
+        listTopicFragment.setRef(mRef);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -76,6 +77,31 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
         transaction.addToBackStack(null);
 
         transaction.commit();
+    }
+
+    @Override
+    public void onFirebaseLoggedIn(AuthData authData) {
+        Log.i(TAG, "Logged in to " + authData.getProvider().toString());
+
+        switch (authData.getProvider()) {
+            case "password":
+                mName = (String) authData.getProviderData().get("email");
+                break;
+            default:
+                mName = (String) authData.getProviderData().get("displayName");
+                break;
+        }
+
+        if(mName != null){
+            Sujet s = new Sujet(mName,getAuth().getUid(),"test","la description");
+            mRef.push().setValue(s);
+            Log.i("PCajout","on a push un nouveau sujet");
+        }
+
+        invalidateOptionsMenu();
+        listTopicFragment.getmAdapter().notifyDataSetChanged();
+
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {

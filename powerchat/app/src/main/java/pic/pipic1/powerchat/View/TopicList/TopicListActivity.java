@@ -55,11 +55,9 @@ public class TopicListActivity extends AppCompatActivity {
         ListTopicFragment listTopicFragment = new ListTopicFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.accueil_topic, listTopicFragment, "fragmentListTopic");
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 

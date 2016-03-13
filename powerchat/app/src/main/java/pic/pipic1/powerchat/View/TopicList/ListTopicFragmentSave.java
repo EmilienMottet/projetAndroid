@@ -22,7 +22,7 @@ import pic.pipic1.powerchat.View.Adapter.SujetAdapter;
  */
 public class ListTopicFragmentSave extends Fragment{
 
-
+/*
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -80,4 +80,5 @@ public class ListTopicFragmentSave extends Fragment{
 
         return view;
     }
+    */
 }

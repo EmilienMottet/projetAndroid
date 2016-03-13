@@ -10,9 +10,7 @@ public abstract class Message implements Serializable {
     private Date sendDate;
     private String uid;
 
-    @SuppressWarnings("unused")
     public Message(){}
-
 
     public Message(Date send_date) {
         this.uid = "";

@@ -11,7 +11,6 @@ public class MessageText extends Message implements Serializable {
     private String message;
 
 
-    @SuppressWarnings("unused")
     private MessageText(){
         super();
     }
