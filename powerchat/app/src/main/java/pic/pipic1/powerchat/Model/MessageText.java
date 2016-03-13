@@ -16,15 +16,11 @@ public class MessageText extends Message implements Serializable {
         super();
     }
 
-    public MessageText(String message,User user) {
-        super(Calendar.getInstance().getTime(),user);
+    public MessageText(String message) {
+        super(Calendar.getInstance().getTime());
         this.message = message;
     }
 
-    public MessageText(String message) {
-        super(Calendar.getInstance().getTime(),new User("Anonymous"));
-        this.message = message;
-    }
 
     public String getMessage() {
         return message;

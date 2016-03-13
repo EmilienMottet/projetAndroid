@@ -10,6 +10,7 @@ import java.util.List;
 public class Sujet implements Serializable{
     private String titre;
     private String description;
+    private String uid;
     private ArrayList<Message> messages;
 
     public Sujet(String titre, String description) {
@@ -39,5 +40,25 @@ public class Sujet implements Serializable{
 
     public String getTitre() {
         return titre;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
     }
 }

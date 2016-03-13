@@ -8,14 +8,14 @@ import java.util.Date;
  */
 public abstract class Message implements Serializable {
     private Date sendDate;
-    private User sender;
+    private String uid;
 
     @SuppressWarnings("unused")
     public Message(){}
 
 
-    public Message(Date send_date, User user) {
-        this.sender = user;
+    public Message(Date send_date) {
+        this.uid = "";
         this.sendDate = send_date;
     }
 
@@ -25,6 +25,6 @@ public abstract class Message implements Serializable {
         return sendDate;
     }
 
-    public User getSender() { return sender; }
+    public String getUid() { return uid; }
 
 }

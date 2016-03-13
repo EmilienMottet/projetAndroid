@@ -27,10 +27,10 @@
         <item android:title="Profil">
             <menu>
                 <item
-                    android:id="@+id/nav_first_fragment"
+                    android:id="@+id/se_login"
                     android:title="Se connecter" />
                 <item
-                    android:id="@+id/nav_second_fragment"
+                    android:id="@+id/se_logout"
                     android:title="Se déconnecter" />
             </menu>
         </item>
