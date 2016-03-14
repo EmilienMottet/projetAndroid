@@ -26,7 +26,6 @@ public class ListTopicFragment extends Fragment{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private List<Sujet> sujetList = new ArrayList(){{add(new Sujet("Sujet 1","sujet test voici une courte description"));
         add(new Sujet("Sujet 2","sujet test voici une courte description"));
@@ -70,7 +69,7 @@ public class ListTopicFragment extends Fragment{
 
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this.getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -80,5 +79,9 @@ public class ListTopicFragment extends Fragment{
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    public void addSujet(Sujet s){
+        sujetList.add(s);
     }
 }

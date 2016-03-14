@@ -17,4 +17,8 @@ Nunc sit amet vehicula velit, vitae fringilla dui. Vestibulum laoreet turpis ac 
 
 Quisque quis nisl risus. Duis varius nulla augue, facilisis porttitor augue tincidunt nec. Duis efficitur risus at nulla vehicula, ac scelerisque enim dapibus. Suspendisse suscipit accumsan risus in luctus. Nulla facilisi. Integer sodales lobortis feugiat. Proin magna nisl, tempor sit amet ante nec, sagittis tincidunt nunc. In vestibulum mauris quis leo consectetur, nec maximus ipsum faucibus. Donec vitae consequat diam. Nunc lacus nulla, malesuada non felis a, euismod dictum arcu.
 </string>
+    <string name="popview_text_2">Description</string>
+    <string name="popview_text_1">Sujet:</string>
+    <string name="add_string">Ajouter</string>
+    <string name="ajouter_un_titre">Ajouter un titre</string>
 </resources>

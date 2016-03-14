@@ -3,7 +3,6 @@ package pic.pipic1.powerchat.View.TopicList;
 import com.firebase.client.Firebase;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
-
 /**
  * Created by emimo on 12/03/2016.
  */
