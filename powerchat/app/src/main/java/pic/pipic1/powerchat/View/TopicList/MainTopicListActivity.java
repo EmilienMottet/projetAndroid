@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -43,6 +45,7 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
+    private FloatingActionButton fab;
     private ListTopicFragment listTopicFragment;
 //    private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
 
@@ -79,12 +82,27 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
 
         transaction.commit();
 
-        /*
-        test de la geo
-         */
+        fab = (FloatingActionButton) findViewById(R.id.fabBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//
+//                LayoutInflater inflater = getLayoutInflater();
+//                View dialoglayout = inflater.inflate(R.layout.add_layout_activity, null);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+////                builder.setPositiveButton();
+//                builder.setView(dialoglayout);
+//                builder.show();
 
-        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        
+                Bundle args = new Bundle();
+                args.putString("title", "Ajouter un sujet");
+                TopicDialog actionbarDialog = new TopicDialog();
+                actionbarDialog.setArguments(args);
+                actionbarDialog.show(getFragmentManager(),"action_bar_frag");
+
+            }
+        });
+
     }
 
     @Override
