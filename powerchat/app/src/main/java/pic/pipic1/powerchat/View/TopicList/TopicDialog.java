@@ -14,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.firebase.client.Firebase;
+import com.firebase.ui.auth.core.FirebaseLoginError;
+
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 
@@ -21,6 +24,9 @@ import pic.pipic1.powerchat.R;
  * Created by ppier on 14/03/2016.
  */
 public class TopicDialog extends DialogFragment {
+
+    private Firebase ref;
+    private String name;
     private Toolbar toolbar;
     private Button button;
     private EditText et1;
@@ -42,6 +48,8 @@ public class TopicDialog extends DialogFragment {
             public void onClick(View v) {
 //                ListTopicFragment ltf = new ListTopicFragment();
 //                ltf.addSujet(new Sujet("test","et"));
+//                Sujet s = new Sujet(String author, String uid,String titre, String description);
+
             }
         });
 
@@ -56,6 +64,14 @@ public class TopicDialog extends DialogFragment {
         toolbar.setTitle(title);
 
         return v;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRef(Firebase ref) {
+        this.ref = ref;
     }
 
     @Override

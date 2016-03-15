@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".View.TopicList.TopicListActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name=".View.Discussion.DiscussionActivity"
             android:label="@string/app_name" >
         </activity>
