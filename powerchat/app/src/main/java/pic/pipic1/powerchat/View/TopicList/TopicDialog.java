@@ -3,8 +3,10 @@ package pic.pipic1.powerchat.View.TopicList;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,8 @@ import pic.pipic1.powerchat.R;
  * Created by ppier on 14/03/2016.
  */
 public class TopicDialog extends DialogFragment {
+    private TopicDialog topicDialog = this;
+    private  MainTopicListActivity mainTopicListActivity;
     private Toolbar toolbar;
     private Button button;
     private EditText et1;
@@ -37,11 +41,22 @@ public class TopicDialog extends DialogFragment {
         et1 = (EditText) v.findViewById(R.id.subject_edit_text);
         et1 = (EditText) v.findViewById(R.id.description_edit_text);
 
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                ListTopicFragment ltf = new ListTopicFragment();
 //                ltf.addSujet(new Sujet("test","et"));
+                Log.i("PCajout","val main : "+mainTopicListActivity);
+                Log.i("PCajout","val name : "+mainTopicListActivity.getName());
+                Log.i("PCajout","val uid : "+mainTopicListActivity.getAuth().getUid());
+                Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),"test","la description");
+                mainTopicListActivity.getRef().push().setValue(s);
+                Log.i("PCajout","on a push un nouveau sujet");
+                mainTopicListActivity.invalidateOptionsMenu();
+                mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
+
+                // quitter l'activ la c'est galere car c'est pas une activité mais un fragment
             }
         });
 
@@ -56,6 +71,10 @@ public class TopicDialog extends DialogFragment {
         toolbar.setTitle(title);
 
         return v;
+    }
+
+    public void setMainTopicListActivity(MainTopicListActivity mainTopicListActivity) {
+        this.mainTopicListActivity = mainTopicListActivity;
     }
 
     @Override
