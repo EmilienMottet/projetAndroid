@@ -1,6 +1,8 @@
 package pic.pipic1.powerchat.View.TopicList;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -77,6 +79,13 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
         transaction.addToBackStack(null);
 
         transaction.commit();
+
+        /*
+        test de la geo
+         */
+
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        
     }
 
     @Override
