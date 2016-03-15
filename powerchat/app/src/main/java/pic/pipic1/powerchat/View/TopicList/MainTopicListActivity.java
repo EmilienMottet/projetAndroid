@@ -25,7 +25,6 @@ import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
-
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 

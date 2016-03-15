@@ -1,23 +1,19 @@
 package pic.pipic1.powerchat.View.TopicList;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import pic.pipic1.powerchat.R;
 
@@ -32,6 +28,7 @@ public class TopicListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    private FloatingActionButton fab;
 
 
     @Override
@@ -59,6 +56,32 @@ public class TopicListActivity extends AppCompatActivity {
         transaction.replace(R.id.accueil_topic, listTopicFragment, "fragmentListTopic");
         transaction.addToBackStack(null);
         transaction.commit();
+
+        fab = (FloatingActionButton) findViewById(R.id.fabBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//
+//                LayoutInflater inflater = getLayoutInflater();
+//                View dialoglayout = inflater.inflate(R.layout.add_layout_activity, null);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+////                builder.setPositiveButton();
+//                builder.setView(dialoglayout);
+//                builder.show();
+
+                Bundle args = new Bundle();
+                args.putString("title", "Ajouter un sujet");
+                TopicDialog actionbarDialog = new TopicDialog();
+                actionbarDialog.setArguments(args);
+                actionbarDialog.show(getFragmentManager(),"action_bar_frag");
+
+            }
+        });
+
+    }
+
+    public Activity getActivity(){
+        return this;
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -132,7 +155,7 @@ public class TopicListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_topic_list, menu);
+        // getMenuInflater().inflate(R.menu.menu_topic_list, menu);
         return true;
     }
 

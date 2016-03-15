@@ -10,6 +10,11 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        /*
+        Error:Execution failed for task ':app:processDebugManifest'.
+> Manifest merger failed : uses-sdk:minSdkVersion 11 cannot be smaller than version 16 declared in library [com.firebaseui:firebase-ui:0.3.1] C:\Users\ppier\AndroidStudioProjects\projetAndroid\powerchat\app\build\intermediates\exploded-aar\com.firebaseui\firebase-ui\0.3.1\AndroidManifest.xml
+	Suggestion: use tools:overrideLibrary="com.firebase.ui" to force usage
+        * */
     }
     buildTypes {
         release {

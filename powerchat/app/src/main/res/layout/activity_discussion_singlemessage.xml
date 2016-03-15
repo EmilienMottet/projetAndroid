@@ -19,6 +19,8 @@
             android:textColor="@color/bubbleTextColor"
             android:elegantTextHeight="true"
             android:layout_margin="8dp" />
+
+
         <TextView
             android:id="@+id/dateSingleMessage"
             android:layout_width="wrap_content"
@@ -26,4 +28,6 @@
             android:text="09/03/2016"
             android:layout_margin="5dp"
             android:layout_gravity="right"/>
-    </LinearLayout>
+
+
+</LinearLayout>
