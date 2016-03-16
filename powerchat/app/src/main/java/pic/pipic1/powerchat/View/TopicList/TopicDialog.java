@@ -55,7 +55,7 @@ public class TopicDialog extends DialogFragment {
                 Log.i("PCajout","on a push un nouveau sujet");
                 mainTopicListActivity.invalidateOptionsMenu();
                 mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
-
+        //        mainTopicListActivity.getRef().push().getKey()
                 // quitter l'activ la c'est galere car c'est pas une activité mais un fragment
             }
         });
