@@ -3,8 +3,12 @@ package pic.pipic1.powerchat.View.TopicList;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +31,8 @@ public class TopicDialog extends DialogFragment {
 
     private Firebase ref;
     private String name;
+    private TopicDialog topicDialog = this;
+    private  MainTopicListActivity mainTopicListActivity;
     private Toolbar toolbar;
     private Button button;
     private EditText et1;
@@ -43,15 +49,34 @@ public class TopicDialog extends DialogFragment {
         et1 = (EditText) v.findViewById(R.id.subject_edit_text);
         et1 = (EditText) v.findViewById(R.id.description_edit_text);
 
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ListTopicFragment ltf = new ListTopicFragment();
-//                ltf.addSujet(new Sujet("test","et"));
-//                Sujet s = new Sujet(String author, String uid,String titre, String description);
+                try {
+                    Log.i("PCajout","val main : "+mainTopicListActivity);
+                    Log.i("PCajout","val name : "+mainTopicListActivity.getName());
+                    Log.i("PCajout","val uid : "+mainTopicListActivity.getAuth().getUid());
+                    Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),"test","la description");
+                    mainTopicListActivity.getRef().push().setValue(s);
+                    Log.i("PCajout","on a push un nouveau sujet");
+                    mainTopicListActivity.invalidateOptionsMenu();
+                    mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
+                }catch(Exception e){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(topicDialog.getActivity());
+                    builder.setTitle("Vous n'etes pas connecter!");
+                    builder.setPositiveButton("OK..", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                }
 
             }
         });
+
 
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -66,12 +91,8 @@ public class TopicDialog extends DialogFragment {
         return v;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setRef(Firebase ref) {
-        this.ref = ref;
+    public void setMainTopicListActivity(MainTopicListActivity mainTopicListActivity) {
+        this.mainTopicListActivity = mainTopicListActivity;
     }
 
     @Override

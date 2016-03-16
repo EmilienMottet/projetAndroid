@@ -48,6 +48,8 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
 
     private FloatingActionButton fab;
     private ListTopicFragment listTopicFragment;
+
+    private MainTopicListActivity mainTopicListActivity = this;
 //    private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
 
 
@@ -98,6 +100,7 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
                 Bundle args = new Bundle();
                 args.putString("title", "Ajouter un sujet");
                 TopicDialog actionbarDialog = new TopicDialog();
+                actionbarDialog.setMainTopicListActivity(mainTopicListActivity);
                 actionbarDialog.setArguments(args);
                 actionbarDialog.show(getFragmentManager(),"action_bar_frag");
 
@@ -127,7 +130,6 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
 
         invalidateOptionsMenu();
         listTopicFragment.getmAdapter().notifyDataSetChanged();
-
 
     }
 
@@ -206,6 +208,18 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
     @Override
     protected Firebase getFirebaseRef() {
         return mRef;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public  Firebase getRef(){
+        return  mRef;
+    }
+
+    public ListTopicFragment getListTopicFragment() {
+        return listTopicFragment;
     }
 
     @Override
