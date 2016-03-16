@@ -61,7 +61,7 @@ public class ListTopicFragment extends Fragment{
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new SujetAdapter(sujetList);
+        mAdapter = new SujetAdapter(new Firebase("https://powerchat-iut.firebaseio.com/sujets"));
 
         mRecyclerView.setAdapter(mAdapter);
 
