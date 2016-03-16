@@ -45,10 +45,10 @@ public class ListTopicFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i("PCfrag","on passe la");
         View view = inflater.inflate(R.layout.fragmentlisttopic,null);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
-
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

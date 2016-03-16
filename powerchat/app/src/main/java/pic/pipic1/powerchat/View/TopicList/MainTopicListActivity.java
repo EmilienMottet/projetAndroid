@@ -120,12 +120,12 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
                 mName = (String) authData.getProviderData().get("displayName");
                 break;
         }
-
-        if(mName != null){
-            Sujet s = new Sujet(mName,getAuth().getUid(),"test","la description");
-            mRef.push().setValue(s);
-            Log.i("PCajout","on a push un nouveau sujet");
-        }
+//
+//        if(mName != null){
+//            Sujet s = new Sujet(mName,getAuth().getUid(),"test","la description");
+//            mRef.push().setValue(s);
+//            Log.i("PCajout","on a push un nouveau sujet");
+//        }
 
         invalidateOptionsMenu();
         listTopicFragment.getmAdapter().notifyDataSetChanged();

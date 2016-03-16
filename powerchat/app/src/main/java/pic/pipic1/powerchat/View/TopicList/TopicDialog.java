@@ -39,7 +39,7 @@ public class TopicDialog extends DialogFragment {
         toolbar = (Toolbar) v.findViewById(R.id.toolbarAlertDialog);
         button = (Button) v.findViewById(R.id.validate_topic);
         et1 = (EditText) v.findViewById(R.id.subject_edit_text);
-        et1 = (EditText) v.findViewById(R.id.description_edit_text);
+        et2 = (EditText) v.findViewById(R.id.description_edit_text);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class TopicDialog extends DialogFragment {
                 Log.i("PCajout","val main : "+mainTopicListActivity);
                 Log.i("PCajout","val name : "+mainTopicListActivity.getName());
                 Log.i("PCajout","val uid : "+mainTopicListActivity.getAuth().getUid());
-                Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),"test","la description");
+                Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),et1.getText().toString(),et2.getText().toString());
                 mainTopicListActivity.getRef().push().setValue(s);
                 Log.i("PCajout","on a push un nouveau sujet");
                 mainTopicListActivity.invalidateOptionsMenu();
