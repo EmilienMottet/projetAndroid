@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.firebase.ui.FirebaseRecyclerAdapter;
+
 import java.util.List;
 
 import pic.pipic1.powerchat.Model.Message;
@@ -20,10 +24,14 @@ import pic.pipic1.powerchat.View.Discussion.DiscussionActivity;
 /**
  * Created by ppier on 09/03/2016.
  */
-public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.ViewHolder>{
+public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,DiscussionAdapter.ViewHolder> {
 
     public List<Message> topic_messages;
 
+    public DiscussionAdapter(Firebase firebase){
+
+        super(Message.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebased);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private View messageView;
@@ -46,9 +54,6 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
         vh.date.setText(message.getSendDate().toString());
     }
 
-    public DiscussionAdapter(List<Message> messages){
-        topic_messages = messages;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,9 +61,15 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
         return new ViewHolder(v);
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         setMessage(topic_messages.get(position),holder);
+    }
+
+    @Override
+    protected void populateViewHolder(ViewHolder viewHolder, Message message, int i) {
+        setMessage(message,viewHolder);
     }
 
     @Override
