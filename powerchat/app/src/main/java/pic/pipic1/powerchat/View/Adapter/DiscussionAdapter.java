@@ -29,8 +29,7 @@ public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,Discussio
     public List<Message> topic_messages;
 
     public DiscussionAdapter(Firebase firebase){
-
-        super(Message.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebased);
+        super(Message.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebase);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,7 +53,7 @@ public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,Discussio
         vh.date.setText(message.getSendDate().toString());
     }
 
-
+/*
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_discussion_singlemessage, parent, false);
@@ -68,12 +67,15 @@ public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,Discussio
     }
 
     @Override
+    public int getItemCount() {
+        return topic_messages.size();
+    }
+    */
+
+    @Override
     protected void populateViewHolder(ViewHolder viewHolder, Message message, int i) {
         setMessage(message,viewHolder);
     }
 
-    @Override
-    public int getItemCount() {
-        return topic_messages.size();
-    }
+
 }

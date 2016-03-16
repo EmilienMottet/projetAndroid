@@ -9,11 +9,13 @@ import java.util.Date;
 public abstract class Message implements Serializable {
     private Date sendDate;
     private String uid;
+    private String author;
 
     public Message(){}
 
-    public Message(Date send_date) {
-        this.uid = "";
+    public Message(Date send_date, String uid, String author) {
+        this.uid = uid;
+        this.author = author;
         this.sendDate = send_date;
     }
 

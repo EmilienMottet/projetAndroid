@@ -10,13 +10,12 @@ import java.util.Date;
 public class MessageText extends Message implements Serializable {
     private String message;
 
-
     private MessageText(){
         super();
     }
 
-    public MessageText(String message) {
-        super(Calendar.getInstance().getTime());
+    public MessageText(String message, String uid, String author) {
+        super(Calendar.getInstance().getTime(),uid,author);
         this.message = message;
     }
 

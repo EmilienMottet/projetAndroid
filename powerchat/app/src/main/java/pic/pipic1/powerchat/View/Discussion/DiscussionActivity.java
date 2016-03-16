@@ -36,7 +36,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
         if(sujet != null){
             toolbar.setTitle(sujet.getTitre());
-            recyclerView.setAdapter(new DiscussionAdapter(sujet.getMessages()));
+            recyclerView.setAdapter(new DiscussionAdapter(new Firebase("https://powerchat-iut.firebaseio.com/message")));
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

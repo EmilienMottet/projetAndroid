@@ -14,7 +14,6 @@ public class Sujet implements Serializable{
     private String description;
     private String uid;
     private String author;
-    private ArrayList<Message> messages;
 
     public Sujet(String author, String uid,String titre, String description) {
         Log.i("PCSujet","l'auteur est "+author);
@@ -22,24 +21,8 @@ public class Sujet implements Serializable{
         this.author = author;
         this.titre = titre;
         this.description = description;
-        messages = new ArrayList<>();
     }
 
-    public Sujet() {
-        messages = new ArrayList<>();
-    }
-
-    public void addMessage(Message message){
-        messages.add(message);
-    }
-
-    public void addMessages(List<Message> message){
-        messages.addAll(message);
-    }
-
-    public ArrayList<Message> getMessages(){
-        return messages;
-    }
     public String getDescription() {
         return description;
     }
@@ -62,10 +45,6 @@ public class Sujet implements Serializable{
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public void setMessages(ArrayList<Message> messages) {
-        this.messages = messages;
     }
 
     public void setAuthor(String author) {
