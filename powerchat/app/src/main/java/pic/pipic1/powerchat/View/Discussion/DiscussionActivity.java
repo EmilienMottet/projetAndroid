@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.List;
+
+import pic.pipic1.powerchat.Model.Message;
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 import pic.pipic1.powerchat.View.Adapter.DiscussionAdapter;
@@ -25,18 +29,28 @@ import pic.pipic1.powerchat.View.Adapter.DiscussionAdapter;
 public class DiscussionActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Sujet sujet;
+    private String idSujet;
+    private List<Message> listMessage;
+    private Firebase mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+        mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages");
+
         sujet = (Sujet) getIntent().getSerializableExtra("Subject");
+        idSujet = (String)  getIntent().getSerializableExtra("idSujet");
+        Log.i("PCidSujet",idSujet);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
 
         if(sujet != null){
+            mRef.child("idSujet").equalTo(idSujet);
+
             toolbar.setTitle(sujet.getTitre());
-            recyclerView.setAdapter(new DiscussionAdapter(new Firebase("https://powerchat-iut.firebaseio.com/message")));
+            recyclerView.setAdapter(new DiscussionAdapter(mRef));
+
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

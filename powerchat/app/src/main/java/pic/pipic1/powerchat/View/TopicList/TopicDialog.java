@@ -45,14 +45,8 @@ public class TopicDialog extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ListTopicFragment ltf = new ListTopicFragment();
-//                ltf.addSujet(new Sujet("test","et"));
-                Log.i("PCajout","val main : "+mainTopicListActivity);
-                Log.i("PCajout","val name : "+mainTopicListActivity.getName());
-                Log.i("PCajout","val uid : "+mainTopicListActivity.getAuth().getUid());
                 Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),et1.getText().toString(),et2.getText().toString());
                 mainTopicListActivity.getRef().push().setValue(s);
-                Log.i("PCajout","on a push un nouveau sujet");
                 mainTopicListActivity.invalidateOptionsMenu();
                 mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
         //        mainTopicListActivity.getRef().push().getKey()
