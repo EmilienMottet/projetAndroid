@@ -38,9 +38,11 @@ import java.util.Map;
 
 import pic.pipic1.powerchat.Model.Message;
 import pic.pipic1.powerchat.Model.MessageText;
+import pic.pipic1.powerchat.Model.MessageTextSimple;
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 import pic.pipic1.powerchat.View.Adapter.DiscussionAdapter;
+import pic.pipic1.powerchat.View.Adapter.TextSimpleAdapter;
 
 public class DiscussionActivity extends FirebaseLoginBaseActivity {
 
@@ -76,7 +78,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity {
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Chat chat = new Chat(mName, getAuth().getUid(), mMessageASend.getText().toString());
+                MessageTextSimple chat = new MessageTextSimple(mName, getAuth().getUid(), mMessageASend.getText().toString());
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override
@@ -97,14 +99,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDiscussionAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(Chat.class, R.layout.activity_discussion_singlemessage, ChatHolder.class, mChatRef) {
-            @Override
-            public void populateViewHolder(ChatHolder chatView, Chat chat, int position) {
-                chatView.setName(chat.getName());
-                chatView.setText(chat.getText());
-
-            }
-        };
+        mDiscussionAdapter = new TextSimpleAdapter(mChatRef,this);
 
         recyclerView.setAdapter(mDiscussionAdapter);
 
@@ -167,50 +162,6 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity {
         resetFirebaseLoginPrompt();
     }
 
-    public static class Chat {
-        String name;
-        String text;
-        String uid;
-
-        public Chat() {
-        }
-
-        public Chat(String name, String uid, String message) {
-            this.name = name;
-            this.text = message;
-            this.uid = uid;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getUid() {
-            return uid;
-        }
-
-        public String getText() {
-            return text;
-        }
-    }
-
-    public static class ChatHolder extends RecyclerView.ViewHolder {
-        View mView;
-
-        public ChatHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-        }
 
 
-        public void setName(String name) {
-            TextView field = (TextView) mView.findViewById(R.id.dateSingleMessage);
-            field.setText(name);
-        }
-
-        public void setText(String text) {
-            TextView field = (TextView) mView.findViewById(R.id.message);
-            field.setText(text);
-        }
-    }
 }
