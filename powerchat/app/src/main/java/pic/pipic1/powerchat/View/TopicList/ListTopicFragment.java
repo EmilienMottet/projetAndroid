@@ -68,9 +68,4 @@ public class ListTopicFragment extends Fragment{
         return view;
     }
 
-    public void addSujet(Sujet s){
-
-        sujetList.add(s);
-        mAdapter.notify();
-    }
 }

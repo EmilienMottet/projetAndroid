@@ -15,6 +15,10 @@ public class Sujet implements Serializable{
     private String uid;
     private String author;
 
+    public Sujet(){
+
+    }
+
     public Sujet(String author, String uid,String titre, String description) {
         Log.i("PCSujet","l'auteur est "+author);
         this.uid = uid;

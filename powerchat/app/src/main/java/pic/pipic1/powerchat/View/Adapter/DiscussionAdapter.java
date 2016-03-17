@@ -24,12 +24,17 @@ import pic.pipic1.powerchat.View.Discussion.DiscussionActivity;
 /**
  * Created by ppier on 09/03/2016.
  */
-public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,DiscussionAdapter.ViewHolder> {
+public class DiscussionAdapter extends FirebaseRecyclerAdapter<MessageText,DiscussionAdapter.ViewHolder> {
 
-    public List<Message> topic_messages;
+    public List<MessageText> topic_messages;
 
     public DiscussionAdapter(Firebase firebase){
-        super(Message.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebase);
+        super(MessageText.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebase);
+    }
+
+    @Override
+    protected void populateViewHolder(ViewHolder viewHolder, MessageText messageText, int i) {
+        setMessage(messageText,viewHolder);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -48,34 +53,9 @@ public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,Discussio
 
     }
 
-    private void setMessage(Message message, ViewHolder vh){
+    private void setMessage(MessageText message, ViewHolder vh){
         vh.message.setText(message.getMessage());
         vh.date.setText(message.getSendDate().toString());
     }
-
-/*
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_discussion_singlemessage, parent, false);
-        return new ViewHolder(v);
-    }
-
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        setMessage(topic_messages.get(position),holder);
-    }
-
-    @Override
-    public int getItemCount() {
-        return topic_messages.size();
-    }
-    */
-
-    @Override
-    protected void populateViewHolder(ViewHolder viewHolder, Message message, int i) {
-        setMessage(message,viewHolder);
-    }
-
 
 }
