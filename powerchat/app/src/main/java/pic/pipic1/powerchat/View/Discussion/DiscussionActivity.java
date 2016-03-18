@@ -78,7 +78,16 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity {
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageTextSimple chat = new MessageTextSimple(mName, getAuth().getUid(), mMessageASend.getText().toString());
+                String name = "" ;
+                String uid = "";
+                try {
+                    name = mName;
+                    uid = getAuth().getUid();
+                }catch (Exception e){
+                    name ="anonyme";
+                    uid="anonyme";
+                }
+                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString());
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override

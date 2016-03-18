@@ -28,7 +28,6 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
     public void populateViewHolder(MessageTextSimpleHolder chatView, MessageTextSimple chat, int position) {
         chatView.setName(DateFormat.getDateFormat(mContext).format(chat.getDate()));
         chatView.setText(chat.getText());
-
     }
 
     public static class MessageTextSimpleHolder extends RecyclerView.ViewHolder {

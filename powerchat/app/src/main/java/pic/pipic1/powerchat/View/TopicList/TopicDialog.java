@@ -45,7 +45,16 @@ public class TopicDialog extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),et1.getText().toString(),et2.getText().toString());
+                String name = "";
+                String uid= "";
+                try{
+                    name = mainTopicListActivity.getName();
+                    uid = mainTopicListActivity.getAuth().getUid();
+                }catch (Exception e){
+                    uid = "anonyme";
+                    name = "anonyme";
+                }
+                Sujet s = new Sujet(name,uid,et1.getText().toString(),et2.getText().toString());
                 mainTopicListActivity.getRef().push().setValue(s);
                 mainTopicListActivity.invalidateOptionsMenu();
                 mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
