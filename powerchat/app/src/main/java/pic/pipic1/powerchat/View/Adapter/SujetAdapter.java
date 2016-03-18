@@ -9,7 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.firebase.ui.FirebaseRecyclerAdapter;
+
 import java.util.List;
+import java.util.Objects;
 
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
@@ -18,9 +23,12 @@ import pic.pipic1.powerchat.View.Discussion.DiscussionActivity;
 /**
  * Created by emimo on 06/03/2016.
  */
-public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
+public class SujetAdapter extends FirebaseRecyclerAdapter<Sujet,SujetAdapter.ViewHolder>{
 
-    private List<Sujet> sujetList;
+    @Override
+    protected void populateViewHolder(ViewHolder viewHolder, Sujet sujet, int i) {
+        setSujet(sujet,viewHolder,i);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -38,7 +46,7 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
 
     }
 
-    private void setSujet(final Sujet s, ViewHolder vh){
+    private void setSujet(final Sujet s, ViewHolder vh,final int pos){
         vh.mTitre.setText(s.getTitre());
         vh.mDesc.setText(s.getDescription());
         vh.mView.setOnClickListener(new View.OnClickListener() {
@@ -47,29 +55,15 @@ public class SujetAdapter extends RecyclerView.Adapter<SujetAdapter.ViewHolder>{
                 Log.i("onClick","on a cliqueez sur : "+s.getTitre());
                 Intent intent = new Intent(v.getContext(), DiscussionActivity.class);
                 intent.putExtra("Subject",s);
+                Log.i("PCintent","la key : "+getRef(pos).getKey());
+                intent.putExtra("idSujet",getRef(pos).getKey());
                 v.getContext().startActivity(intent);
             }
         });
     }
 
 
-    public SujetAdapter(List<Sujet> sujets){
-        sujetList = sujets;
-    }
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.describe_topic_layout,parent,false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        setSujet(sujetList.get(position),holder);
-    }
-
-    @Override
-    public int getItemCount() {
-        return sujetList.size();
+    public SujetAdapter( Firebase firebase){
+        super(Sujet.class,R.layout.describe_topic_layout,ViewHolder.class,firebase);
     }
 }

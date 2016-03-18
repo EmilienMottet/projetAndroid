@@ -27,6 +27,9 @@ import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
+
+import java.util.logging.MemoryHandler;
+
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
 
@@ -36,6 +39,7 @@ import pic.pipic1.powerchat.R;
  */
 public class MainTopicListActivity extends FirebaseLoginBaseActivity{
 
+    private MainTopicListActivity mainTopicListActivity = this;
     public static String TAG = "FirebaseUI.chat";
     private Firebase mRef;
     private Query mChatRef;
@@ -48,8 +52,6 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
 
     private FloatingActionButton fab;
     private ListTopicFragment listTopicFragment;
-
-    private MainTopicListActivity mainTopicListActivity = this;
 //    private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
 
 
@@ -122,14 +124,15 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
                 break;
         }
 
-        if(mName != null){
-            Sujet s = new Sujet(mName,getAuth().getUid(),"test","la description");
-            mRef.push().setValue(s);
-            Log.i("PCajout","on a push un nouveau sujet");
-        }
+//        if(mName != null){
+//            Sujet s = new Sujet(mName,getAuth().getUid(),"test","la description");
+//            mRef.push().setValue(s);
+//            Log.i("PCajout","on a push un nouveau sujet");
+//        }
 
         invalidateOptionsMenu();
         listTopicFragment.getmAdapter().notifyDataSetChanged();
+
 
     }
 
@@ -210,18 +213,6 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
         return mRef;
     }
 
-    public String getName() {
-        return mName;
-    }
-
-    public  Firebase getRef(){
-        return  mRef;
-    }
-
-    public ListTopicFragment getListTopicFragment() {
-        return listTopicFragment;
-    }
-
     @Override
     protected void onFirebaseLoginProviderError(FirebaseLoginError firebaseLoginError) {
         Log.e(TAG, "Login provider error: " + firebaseLoginError.toString());
@@ -232,5 +223,18 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
     protected void onFirebaseLoginUserError(FirebaseLoginError firebaseLoginError) {
         Log.e(TAG, "Login user error: "+firebaseLoginError.toString());
         resetFirebaseLoginPrompt();
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public Firebase getRef() {
+        return mRef;
+    }
+
+
+    public ListTopicFragment getListTopicFragment() {
+        return listTopicFragment;
     }
 }

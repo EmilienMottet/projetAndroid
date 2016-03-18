@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.firebase.ui.FirebaseRecyclerAdapter;
+
 import java.util.List;
 
 import pic.pipic1.powerchat.Model.Message;
@@ -20,10 +24,18 @@ import pic.pipic1.powerchat.View.Discussion.DiscussionActivity;
 /**
  * Created by ppier on 09/03/2016.
  */
-public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.ViewHolder>{
+public class DiscussionAdapter extends FirebaseRecyclerAdapter<MessageText,DiscussionAdapter.ViewHolder> {
 
-    public List<Message> topic_messages;
+    public List<MessageText> topic_messages;
 
+    public DiscussionAdapter(Firebase firebase){
+        super(MessageText.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebase);
+    }
+
+    @Override
+    protected void populateViewHolder(ViewHolder viewHolder, MessageText messageText, int i) {
+        setMessage(messageText,viewHolder);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private View messageView;
@@ -41,28 +53,9 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
 
     }
 
-    private void setMessage(Message message, ViewHolder vh){
+    private void setMessage(MessageText message, ViewHolder vh){
         vh.message.setText(message.getMessage());
         vh.date.setText(message.getSendDate().toString());
     }
 
-    public DiscussionAdapter(List<Message> messages){
-        topic_messages = messages;
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_discussion_singlemessage, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        setMessage(topic_messages.get(position),holder);
-    }
-
-    @Override
-    public int getItemCount() {
-        return topic_messages.size();
-    }
 }
