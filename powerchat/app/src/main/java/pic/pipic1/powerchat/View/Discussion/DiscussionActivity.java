@@ -25,6 +25,7 @@ import pic.pipic1.powerchat.View.Adapter.DiscussionAdapter;
 public class DiscussionActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Sujet sujet;
+    private Firebase ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
         if(sujet != null){
             toolbar.setTitle(sujet.getTitre());
-            recyclerView.setAdapter(new DiscussionAdapter(sujet.getMessages()));
+            recyclerView.setAdapter(new DiscussionAdapter(ref));
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,6 +45,10 @@ public class DiscussionActivity extends AppCompatActivity {
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void setRef(Firebase ref) {
+        this.ref = ref;
     }
 
     @Override

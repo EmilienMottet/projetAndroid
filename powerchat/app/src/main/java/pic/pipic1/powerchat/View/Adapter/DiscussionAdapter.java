@@ -13,6 +13,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pic.pipic1.powerchat.Model.Message;
@@ -27,10 +28,11 @@ import pic.pipic1.powerchat.View.Discussion.DiscussionActivity;
 public class DiscussionAdapter extends FirebaseRecyclerAdapter<Message,DiscussionAdapter.ViewHolder> {
 
     public List<Message> topic_messages;
+    private Firebase ref;
 
     public DiscussionAdapter(Firebase firebase){
-
-        super(Message.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebased);
+        super(Message.class,R.layout.activity_discussion_singlemessage, ViewHolder.class, firebase);
+        ref = firebase;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
