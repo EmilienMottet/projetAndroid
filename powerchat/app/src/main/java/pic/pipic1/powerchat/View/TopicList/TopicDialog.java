@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -51,7 +52,7 @@ public class TopicDialog extends DialogFragment {
                     name = mainTopicListActivity.getName();
                     uid = mainTopicListActivity.getAuth().getUid();
                 }catch (Exception e){
-                    uid = "anonyme";
+                    uid = Settings.Secure.getString(mainTopicListActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
                     name = "anonyme";
                 }
                 Sujet s = new Sujet(name,uid,et1.getText().toString(),et2.getText().toString());
@@ -60,6 +61,7 @@ public class TopicDialog extends DialogFragment {
                 mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
         //        mainTopicListActivity.getRef().push().getKey()
                 // quitter l'activ la c'est galere car c'est pas une activité mais un fragment
+                getDialog().dismiss();
             }
         });
 
