@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Handler;
 import android.os.ResultReceiver;
+=======
+import android.provider.Settings;
+>>>>>>> 414cc424b5a994677cabd76a6ce2f53879fbe1e8
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -126,7 +130,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                     uid = getAuth().getUid();
                 }catch (Exception e){
                     name ="anonyme";
-                    uid="anonyme";
+                    uid= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                 }
 
 
