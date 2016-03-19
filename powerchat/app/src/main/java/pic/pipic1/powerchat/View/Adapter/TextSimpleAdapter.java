@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
+import java.text.SimpleDateFormat;
+
 import pic.pipic1.powerchat.Model.MessageTextSimple;
 import pic.pipic1.powerchat.R;
 
@@ -26,7 +28,9 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
 
     @Override
     public void populateViewHolder(MessageTextSimpleHolder chatView, MessageTextSimple chat, int position) {
-        chatView.setName(DateFormat.getDateFormat(mContext).format(chat.getDate()));
+//        chatView.setName(DateFormat.getDateFormat(mContext).format(chat.getDate()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM hh:mm");
+        chatView.setName(formatter.format(chat.getDate()));
         chatView.setText(chat.getText());
     }
 
