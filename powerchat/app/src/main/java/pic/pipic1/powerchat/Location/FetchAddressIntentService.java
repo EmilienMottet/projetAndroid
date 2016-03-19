@@ -37,6 +37,7 @@ public class FetchAddressIntentService extends IntentService {
     public FetchAddressIntentService() {
         // Use the TAG to name the worker thread.
         super(TAG);
+        Log.i("PCLocation","on est dans fetchadresse");
     }
 
     /**
@@ -50,6 +51,7 @@ public class FetchAddressIntentService extends IntentService {
      */
     @Override
     protected void onHandleIntent(Intent intent) {
+
         String errorMessage = "";
 
         mReceiver = intent.getParcelableExtra(Constants.RECEIVER);

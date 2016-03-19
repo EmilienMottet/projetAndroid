@@ -201,9 +201,9 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        setEnabledAuthProvider(AuthProviderType.TWITTER);
+//        setEnabledAuthProvider(AuthProviderType.TWITTER);
         setEnabledAuthProvider(AuthProviderType.GOOGLE);
-        setEnabledAuthProvider(AuthProviderType.PASSWORD);
+//        setEnabledAuthProvider(AuthProviderType.PASSWORD);
         setEnabledAuthProvider(AuthProviderType.FACEBOOK);
 
     }
