@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -45,18 +46,22 @@ public class TopicDialog extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ListTopicFragment ltf = new ListTopicFragment();
-//                ltf.addSujet(new Sujet("test","et"));
-                Log.i("PCajout","val main : "+mainTopicListActivity);
-                Log.i("PCajout","val name : "+mainTopicListActivity.getName());
-                Log.i("PCajout","val uid : "+mainTopicListActivity.getAuth().getUid());
-                Sujet s = new Sujet(mainTopicListActivity.getName(),mainTopicListActivity.getAuth().getUid(),et1.getText().toString(),et2.getText().toString());
+                String name = "";
+                String uid= "";
+                try{
+                    name = mainTopicListActivity.getName();
+                    uid = mainTopicListActivity.getAuth().getUid();
+                }catch (Exception e){
+                    uid = Settings.Secure.getString(mainTopicListActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
+                    name = "anonyme";
+                }
+                Sujet s = new Sujet(name,uid,et1.getText().toString(),et2.getText().toString());
                 mainTopicListActivity.getRef().push().setValue(s);
-                Log.i("PCajout","on a push un nouveau sujet");
                 mainTopicListActivity.invalidateOptionsMenu();
                 mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
         //        mainTopicListActivity.getRef().push().getKey()
                 // quitter l'activ la c'est galere car c'est pas une activité mais un fragment
+                getDialog().dismiss();
             }
         });
 
