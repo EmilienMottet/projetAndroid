@@ -1,6 +1,7 @@
 package pic.pipic1.powerchat.View.Discussion;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -85,7 +86,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity {
                     uid = getAuth().getUid();
                 }catch (Exception e){
                     name ="anonyme";
-                    uid="anonyme";
+                    uid= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                 }
                 MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString());
 
