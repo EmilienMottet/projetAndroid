@@ -111,6 +111,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         mImageButton = (ImageButton) findViewById(R.id.imageButton);
         mMessageASend = (EditText) findViewById(R.id.editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(sujet.getTitre()+ " créer par " + sujet.getAuthor());
 
 
         recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
