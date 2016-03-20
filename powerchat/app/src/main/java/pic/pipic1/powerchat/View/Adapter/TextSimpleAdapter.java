@@ -35,11 +35,12 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
     public void populateViewHolder(MessageTextSimpleHolder chatView, MessageTextSimple chat, int position) {
 //        chatView.setName(DateFormat.getDateFormat(mContext).format(chat.getDate()));
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM hh:mm");
+        SimpleDateFormat formatter_hour_min = new SimpleDateFormat("HH:mm");
         chatView.setDate(formatter.format(chat.getDate()));
         chatView.setText(chat.getText());
         chatView.setPosition(chat.getLoc());
-        chatView.setAuthor(chat.getName());
-        if(chat.getPhoto() != null || !chat.getPhoto().equals("")){
+        chatView.setAuthor(chat.getName() + " à " + formatter_hour_min.format(chat.getDate()));
+        if(chat.getPhoto() != ""){
             chatView.setImageView(chat.getPhoto());
         }
     }
@@ -64,7 +65,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
 
 
         public void setDate(String name) {
-            mText.setText(name);
+            mDate.setText(name);
         }
 
 
@@ -75,6 +76,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         }
 
         public void setPosition(String position){
+            mPosition.setVisibility(View.VISIBLE);
             mPosition.setText(position);
         }
 
@@ -83,8 +85,11 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         }
 
         public  void setImageView(String image){
+            mImageView.setVisibility(View.VISIBLE);
             byte[] decodedBytes = Base64.decode(image, 0);
-            mImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length));;
+            mImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length));
+            mImageView.setMinimumHeight(250);
+            mImageView.setMinimumHeight(250);
         }
     }
 }

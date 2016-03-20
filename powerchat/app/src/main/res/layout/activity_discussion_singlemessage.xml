@@ -19,6 +19,7 @@
         android:textStyle="bold"
         android:textColor="@color/com_facebook_blue"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:visibility="visible"
         />
 
@@ -36,13 +37,16 @@
         android:layout_weight="5"
         android:text="Message example"
         android:textSize="15dp"
-        android:layout_margin="2dp"
-        android:textColor="@color/bubbleTextColor"
-        android:elegantTextHeight="true"/>
+        android:layout_margin="5dp"
+        android:textColor="@android:color/black"
+        android:elegantTextHeight="true"
+        android:textIsSelectable="true"/>
+
     <ImageView
         android:id="@+id/photoview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="500dp"
+        android:layout_height="250dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/dateSingleMessage"
@@ -58,7 +62,8 @@
         android:layout_height="wrap_content"
         android:text="position adresse"
         android:layout_marginRight="5dp"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

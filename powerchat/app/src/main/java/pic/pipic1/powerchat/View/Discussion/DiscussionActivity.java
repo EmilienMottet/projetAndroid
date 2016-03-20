@@ -12,37 +12,24 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
-import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
 import com.google.android.gms.common.ConnectionResult;
@@ -50,19 +37,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import pic.pipic1.powerchat.Location.Constants;
 import pic.pipic1.powerchat.Location.FetchAddressIntentService;
 import pic.pipic1.powerchat.Model.Message;
-import pic.pipic1.powerchat.Model.MessageText;
 import pic.pipic1.powerchat.Model.MessageTextSimple;
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
-import pic.pipic1.powerchat.View.Adapter.DiscussionAdapter;
 import pic.pipic1.powerchat.View.Adapter.TextSimpleAdapter;
 
 public class DiscussionActivity extends FirebaseLoginBaseActivity implements
@@ -82,7 +64,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     private Query mChatRef;
 
     private ImageButton mphotoButton;
-    private ImageButton mImageButton;
+    private ImageButton sendButton;
     private EditText mMessageASend;
 
     // pour la location
@@ -108,7 +90,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages/" + idSujet);
         mChatRef = mRef.limitToLast(50);
         Log.i("PCidSujet", idSujet);
-        mImageButton = (ImageButton) findViewById(R.id.imageButton);
+        sendButton = (ImageButton) findViewById(R.id.imageButton);
         mMessageASend = (EditText) findViewById(R.id.editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(sujet.getTitre()+ " créer par " + sujet.getAuthor());
@@ -133,7 +115,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         buildGoogleApiClient();
         fetchAddressButtonHandler();
 
-        mImageButton.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = "";
