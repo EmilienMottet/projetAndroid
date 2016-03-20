@@ -22,6 +22,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -48,6 +49,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,7 +146,17 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 }
 
 
-                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), mAddressOutput,photo);
+                String photoString = "";
+                try{
+                    ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+                    photo.recycle();
+                    byte[] byteArray = bYtE.toByteArray();
+                    photoString = Base64.encodeToString(byteArray, Base64.DEFAULT) ;
+                }catch (Exception e){
+                    photoString = "";
+                }
+                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), mAddressOutput,photoString);
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override

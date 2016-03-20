@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_margin="15dp"
-    android:id="@+id/singleMessageLayout"
-    android:layout_width="wrap_content"
-    android:orientation="vertical"
-    android:layout_height="wrap_content"
-    android:background="@color/bubbleColorBack"
-    android:elevation="5dp"
-    android:layout_gravity="right"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+android:id="@+id/singleMessageLayout"
+android:layout_width="wrap_content"
+android:orientation="vertical"
+android:layout_height="wrap_content"
+android:background="@color/bubbleColorBack"
+android:elevation="5dp"
+android:layout_gravity="right"
+xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Author NAme"
-            android:textAlignment="center"
-            android:textSize="25dp"
-            android:visibility="gone"
-            />
+    <TextView
+        android:id="@+id/author_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Author NAme"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:visibility="gone"
+        />
 
     <View
         android:id="@+id/separator"
@@ -25,33 +26,36 @@
         android:background="@android:color/darker_gray"
         android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="Message example"
-            android:textSize="15dp"
-            android:textColor="@color/bubbleTextColor"
-            android:elegantTextHeight="true"
-            android:layout_margin="8dp" />
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="Message example"
+        android:textSize="15dp"
+        android:textColor="@color/bubbleTextColor"
+        android:elegantTextHeight="true"
+        android:layout_margin="8dp" />
+    <ImageView
+        android:id="@+id/photoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/dateSingleMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09/03/2016"
+        android:layout_margin="5dp"
+        android:layout_gravity="right"/>
 
-        <TextView
-            android:id="@+id/dateSingleMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="09/03/2016"
-            android:layout_margin="5dp"
-            android:layout_gravity="right"/>
-
-        <TextView
-            android:id="@+id/position_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="position adresse"
-            android:layout_margin="5dp"
-            android:layout_gravity="right"/>
+    <TextView
+        android:id="@+id/position_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="position adresse"
+        android:layout_margin="5dp"
+        android:layout_gravity="right"/>
 
 
 </LinearLayout>

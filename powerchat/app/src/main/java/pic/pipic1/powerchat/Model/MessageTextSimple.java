@@ -14,7 +14,7 @@ public class MessageTextSimple {
     private String uid;
     private Date date;
     private String loc;
-    private Bitmap photo;
+    private String photo;
 
     public MessageTextSimple() {
     }
@@ -27,7 +27,7 @@ public class MessageTextSimple {
         this(name,uid,message,loc,null);
     }
 
-    public MessageTextSimple(String name, String uid, String message, String loc, Bitmap photo){
+    public MessageTextSimple(String name, String uid, String message, String loc, String photo){
         this.name = name;
         this.text = message;
         this.uid = uid;
@@ -60,7 +60,7 @@ public class MessageTextSimple {
         return date;
     }
 
-    public Bitmap getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 }
