@@ -26,8 +26,10 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
 
     @Override
     public void populateViewHolder(MessageTextSimpleHolder chatView, MessageTextSimple chat, int position) {
-        chatView.setName(DateFormat.getDateFormat(mContext).format(chat.getDate()));
+        chatView.setDate(DateFormat.getDateFormat(mContext).format(chat.getDate()));
         chatView.setText(chat.getText());
+        chatView.setPosition(chat.getLoc());
+        chatView.setAuthor(chat.getName());
     }
 
     public static class MessageTextSimpleHolder extends RecyclerView.ViewHolder {
@@ -39,9 +41,23 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         }
 
 
-        public void setName(String name) {
+        public void setDate(String name) {
             TextView field = (TextView) mView.findViewById(R.id.dateSingleMessage);
             field.setText(name);
+        }
+
+
+        public void setAuthor(String author) {
+            TextView field = (TextView) mView.findViewById(R.id.author_textview);
+            field.setVisibility(View.VISIBLE);
+            View separator = (View) mView.findViewById(R.id.separator);
+            separator.setVisibility(View.VISIBLE);
+            field.setText(author);
+        }
+
+        public void setPosition(String position){
+            TextView field = (TextView) mView.findViewById(R.id.position_textview);
+            field.setText(position);
         }
 
         public void setText(String text) {

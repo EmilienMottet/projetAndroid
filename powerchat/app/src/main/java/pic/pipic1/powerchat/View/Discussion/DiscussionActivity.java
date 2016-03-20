@@ -1,64 +1,55 @@
 package pic.pipic1.powerchat.View.Discussion;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
-import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.File;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import pic.pipic1.powerchat.Location.Constants;
 import pic.pipic1.powerchat.Location.FetchAddressIntentService;
 import pic.pipic1.powerchat.Model.Message;
-import pic.pipic1.powerchat.Model.MessageText;
 import pic.pipic1.powerchat.Model.MessageTextSimple;
 import pic.pipic1.powerchat.Model.Sujet;
 import pic.pipic1.powerchat.R;
-import pic.pipic1.powerchat.View.Adapter.DiscussionAdapter;
 import pic.pipic1.powerchat.View.Adapter.TextSimpleAdapter;
 
 public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int IMAGE_CAPTURE = 101;
     public static String TAG = "powerchat-iut.messages";
     private Toolbar toolbar;
     private Sujet sujet;
@@ -70,8 +61,9 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     private RecyclerView recyclerView;
     private Query mChatRef;
 
-    private ImageButton mImageButton;
+    private ImageButton sendButton;
     private EditText mMessageASend;
+    private ImageButton take_photo_btn;
 
     // pour la location
     private AddressResultReceiver mResultReceiver;
@@ -88,14 +80,15 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         setContentView(R.layout.activity_discussion);
 
         sujet = (Sujet) getIntent().getSerializableExtra("Subject");
-        idSujet = (String)  getIntent().getSerializableExtra("idSujet");
-        mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages/"+idSujet);
+        idSujet = (String) getIntent().getSerializableExtra("idSujet");
+        mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages/" + idSujet);
         mChatRef = mRef.limitToLast(50);
-        Log.i("PCidSujet",idSujet);
-        mImageButton = (ImageButton) findViewById(R.id.imageButton);
+        Log.i("PCidSujet", idSujet);
+        sendButton = (ImageButton) findViewById(R.id.imageButton);
         mMessageASend = (EditText) findViewById(R.id.editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        take_photo_btn = (ImageButton) findViewById(R.id.take_photo);
+        toolbar.setTitle(sujet.getTitre());
 
 
         recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
@@ -103,7 +96,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDiscussionAdapter = new TextSimpleAdapter(mChatRef,this);
+        mDiscussionAdapter = new TextSimpleAdapter(mChatRef, this);
 
         recyclerView.setAdapter(mDiscussionAdapter);
 
@@ -117,21 +110,21 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         buildGoogleApiClient();
         fetchAddressButtonHandler();
 
-        mImageButton.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = "" ;
+                String name = "";
                 String uid = "";
                 try {
                     name = mName;
                     uid = getAuth().getUid();
-                }catch (Exception e){
-                    name ="anonyme";
-                    uid= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                } catch (Exception e) {
+                    name = "anonyme";
+                    uid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                 }
 
 
-                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(),mAddressOutput);
+                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), mAddressOutput);
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override
@@ -146,9 +139,21 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
         });
 
+        take_photo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File mediaFile =
+                        new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                + "/powerchat_"+ Calendar.getInstance().getTime().toString() +".jpg");
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, IMAGE_CAPTURE);
+                Uri imageURI = Uri.fromFile(mediaFile);
 
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
+                startActivityForResult(intent, IMAGE_CAPTURE);
+            }
+        });
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -176,8 +181,8 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 break;
         }
 
-        if(mName != null){
-          Log.i("PCajout","ici : "+mName);
+        if (mName != null) {
+            Log.i("PCajout", "ici : " + mName);
         }
 
         invalidateOptionsMenu();
@@ -211,7 +216,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     protected void onFirebaseLoginUserError(FirebaseLoginError firebaseLoginError) {
-        Log.e(TAG, "Login user error: "+firebaseLoginError.toString());
+        Log.e(TAG, "Login user error: " + firebaseLoginError.toString());
         resetFirebaseLoginPrompt();
     }
 
@@ -225,6 +230,16 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             // Determine whether a Geocoder is available.

@@ -55,6 +55,7 @@ public class SujetAdapter extends FirebaseRecyclerAdapter<Sujet,SujetAdapter.Vie
                 Log.i("onClick","on a cliqueez sur : "+s.getTitre());
                 Intent intent = new Intent(v.getContext(), DiscussionActivity.class);
                 intent.putExtra("Subject",s);
+
                 Log.i("PCintent","la key : "+getRef(pos).getKey());
                 intent.putExtra("idSujet",getRef(pos).getKey());
                 v.getContext().startActivity(intent);

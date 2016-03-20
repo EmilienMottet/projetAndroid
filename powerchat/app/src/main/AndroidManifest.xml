@@ -50,6 +50,8 @@
         <service
             android:name=".Location.FetchAddressIntentService"
             android:exported="false"/>
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
     </application>
 
 </manifest>
