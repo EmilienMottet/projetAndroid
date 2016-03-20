@@ -1,9 +1,12 @@
 package pic.pipic1.powerchat.View.TopicList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -109,7 +112,9 @@ public class MainTopicListActivity extends FirebaseLoginBaseActivity{
             }
         });
 
+
     }
+
 
     @Override
     public void onFirebaseLoggedIn(AuthData authData) {

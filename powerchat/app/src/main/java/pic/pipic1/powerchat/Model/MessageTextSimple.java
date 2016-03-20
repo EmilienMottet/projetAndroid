@@ -1,5 +1,7 @@
 package pic.pipic1.powerchat.Model;
 
+import android.graphics.Bitmap;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,25 +14,30 @@ public class MessageTextSimple {
     private String uid;
     private Date date;
     private String loc;
+    private Bitmap photo;
 
     public MessageTextSimple() {
     }
 
     public MessageTextSimple(String name, String uid, String message) {
+        this(name,uid,message,null,null);
+    }
+
+    public MessageTextSimple(String name, String uid, String message, String loc){
+        this(name,uid,message,loc,null);
+    }
+
+    public MessageTextSimple(String name, String uid, String message, String loc, Bitmap photo){
         this.name = name;
         this.text = message;
         this.uid = uid;
         this.date = Calendar.getInstance().getTime();
-        this.loc = "";
-    }
-
-    public MessageTextSimple(String name, String uid, String message, String loc){
-        this(name,uid,message);
         if(loc != null){
             this.loc = loc;
         }else {
             this.loc = "";
         }
+        this.photo = photo;
     }
 
     public String getLoc() {
@@ -51,5 +58,9 @@ public class MessageTextSimple {
 
     public Date getDate() {
         return date;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
     }
 }

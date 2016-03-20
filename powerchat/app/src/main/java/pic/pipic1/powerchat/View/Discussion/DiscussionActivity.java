@@ -1,15 +1,22 @@
 package pic.pipic1.powerchat.View.Discussion;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +66,8 @@ import pic.pipic1.powerchat.View.Adapter.TextSimpleAdapter;
 public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    private DiscussionActivity discussionActivity = this;
+
     public static String TAG = "powerchat-iut.messages";
     private Toolbar toolbar;
     private Sujet sujet;
@@ -70,6 +79,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     private RecyclerView recyclerView;
     private Query mChatRef;
 
+    private ImageButton mphotoButton;
     private ImageButton mImageButton;
     private EditText mMessageASend;
 
@@ -80,6 +90,10 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     protected GoogleApiClient mGoogleApiClient;
     protected String mAddressOutput;
 
+    // pour la photo
+    private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+    private Uri fileUri;
+    private Bitmap photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +102,13 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         setContentView(R.layout.activity_discussion);
 
         sujet = (Sujet) getIntent().getSerializableExtra("Subject");
-        idSujet = (String)  getIntent().getSerializableExtra("idSujet");
-        mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages/"+idSujet);
+        idSujet = (String) getIntent().getSerializableExtra("idSujet");
+        mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages/" + idSujet);
         mChatRef = mRef.limitToLast(50);
-        Log.i("PCidSujet",idSujet);
+        Log.i("PCidSujet", idSujet);
         mImageButton = (ImageButton) findViewById(R.id.imageButton);
         mMessageASend = (EditText) findViewById(R.id.editText);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
 
 
         recyclerView = (RecyclerView) findViewById(R.id.message_recycler_view);
@@ -103,7 +116,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDiscussionAdapter = new TextSimpleAdapter(mChatRef,this);
+        mDiscussionAdapter = new TextSimpleAdapter(mChatRef, this);
 
         recyclerView.setAdapter(mDiscussionAdapter);
 
@@ -120,18 +133,18 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = "" ;
+                String name = "";
                 String uid = "";
                 try {
                     name = mName;
                     uid = getAuth().getUid();
-                }catch (Exception e){
-                    name ="anonyme";
-                    uid= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                } catch (Exception e) {
+                    name = "anonyme";
+                    uid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
                 }
 
 
-                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(),mAddressOutput);
+                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), mAddressOutput,photo);
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override
@@ -141,12 +154,42 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                         }
                     }
                 });
+
                 mMessageASend.setText("");
+                mphotoButton.setBackground(ContextCompat.getDrawable(discussionActivity,R.color.white));
             }
 
         });
 
+        //photo
 
+
+        mphotoButton = (ImageButton) findViewById(R.id.photobutton);
+        mphotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
+
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            photo = (Bitmap) extras.get("data");
+            mphotoButton.setBackground(ContextCompat.getDrawable(this,R.color.colorAccent));
+        }
     }
 
     @Override
@@ -176,8 +219,8 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 break;
         }
 
-        if(mName != null){
-          Log.i("PCajout","ici : "+mName);
+        if (mName != null) {
+            Log.i("PCajout", "ici : " + mName);
         }
 
         invalidateOptionsMenu();
@@ -211,7 +254,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     protected void onFirebaseLoginUserError(FirebaseLoginError firebaseLoginError) {
-        Log.e(TAG, "Login user error: "+firebaseLoginError.toString());
+        Log.e(TAG, "Login user error: " + firebaseLoginError.toString());
         resetFirebaseLoginPrompt();
     }
 
@@ -225,6 +268,16 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             // Determine whether a Geocoder is available.
@@ -241,7 +294,6 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 startIntentService();
             }
         }
-
     }
 
     public void fetchAddressButtonHandler() {

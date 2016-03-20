@@ -54,6 +54,7 @@
                 android:layout_margin="5dp"
                 android:clickable="false" />
             <ImageButton
+                android:id="@+id/photobutton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_photo_black_24dp"
