@@ -2,17 +2,25 @@ package pic.pipic1.powerchat.View.Adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -24,12 +32,13 @@ import pic.pipic1.powerchat.R;
  */
 public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple, TextSimpleAdapter.MessageTextSimpleHolder> {
 
-    private Context mContext;
+    private FirebaseLoginBaseActivity mContext;
 
-    public TextSimpleAdapter(Query ref, Context context) {
+    public TextSimpleAdapter(Query ref, FirebaseLoginBaseActivity context) {
         super(MessageTextSimple.class, R.layout.activity_discussion_singlemessage, MessageTextSimpleHolder.class, ref);
         mContext = context;
     }
+
 
     @Override
     public void populateViewHolder(MessageTextSimpleHolder chatView, MessageTextSimple chat, int position) {
@@ -41,6 +50,13 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         chatView.setPosition(chat.getLoc());
         chatView.setAuthor(chat.getName() + " à " + formatter_hour_min.format(chat.getDate()));
         chatView.setImageView(chat.getPhoto());
+        boolean test = false;
+        try {
+            test = mContext.getAuth().getUid().equals(chat.getUid());
+        }catch (Exception e){
+            test = chat.getUid().equals(Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID));
+        }
+        chatView.setProp(test,mContext);
     }
 
     public static class MessageTextSimpleHolder extends RecyclerView.ViewHolder {
@@ -50,18 +66,27 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         private TextView mText;
         private View mSeparator;
         private ImageView mImageView;
+        private LinearLayout mLayout;
 
         public MessageTextSimpleHolder(View itemView) {
             super(itemView);
             mAuthor = (TextView) itemView.findViewById(R.id.author_textview);
             mDate = (TextView) itemView.findViewById(R.id.dateSingleMessage);
             mPosition = (TextView) itemView.findViewById(R.id.position_textview);
-            ;
+            mLayout = (LinearLayout) itemView.findViewById(R.id.singleMessageLayout);
             mText = (TextView) itemView.findViewById(R.id.message);
             mSeparator = itemView.findViewById(R.id.separator);
             mImageView = (ImageView) itemView.findViewById(R.id.photoview);
         }
 
+        public void setProp(boolean test, Context mContext){
+            if(test){
+                mLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            }else {
+                 mLayout.setGravity(Gravity.LEFT);
+                mLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.bubbleColorBack));
+            }
+        }
 
         public void setDate(String name) {
             mDate.setText(name);
@@ -94,12 +119,3 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         }
     }
 }
-
-/*
-cheval
-velo
-poisson
-cahier
-brosse a dent
-ordinateur
- */
