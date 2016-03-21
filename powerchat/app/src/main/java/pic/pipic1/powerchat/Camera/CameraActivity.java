@@ -34,6 +34,9 @@ public class CameraActivity extends Activity {
                     .replace(R.id.container, camera2BasicFragment)
                     .commit();
         }
+
     }
+
+
 
 }

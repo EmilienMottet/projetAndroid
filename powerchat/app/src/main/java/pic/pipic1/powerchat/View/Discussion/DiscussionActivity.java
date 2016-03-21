@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
@@ -137,15 +138,16 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 String photoString = "";
                 try{
                     ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
-                    photo.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+                    photo.compress(Bitmap.CompressFormat.JPEG, 100, bYtE);
                     photo.recycle();
                     byte[] byteArray = bYtE.toByteArray();
                     photoString = Base64.encodeToString(byteArray, Base64.DEFAULT) ;
                 }catch (Exception e){
                     photoString = "";
                 }
-                if(!mposition_check.isChecked()) mAddressOutput = "";
-                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), mAddressOutput,photoString);
+                String adr = mAddressOutput;
+                if(!mposition_check.isChecked()) adr = "";
+                MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), adr,photoString);
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override
@@ -195,10 +197,16 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            photo = (Bitmap) extras.get("data");
-            mphotoButton.setBackground(ContextCompat.getDrawable(this,R.color.colorAccent));
+            try{
+                byte[] bytes = data.getByteArrayExtra("data");
+                photo= BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                mphotoButton.setBackground(ContextCompat.getDrawable(this,R.color.colorAccent));
+                Log.i("ALELUYA","WESHWESH");
+            }catch (Exception e){
+
+            }
         }
     }
 
@@ -278,6 +286,9 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     public void onConnected(Bundle bundle) {
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -355,6 +366,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            Log.i("PCLocation","val de mAddresseOutput"+mAddressOutput);
         }
     }
 

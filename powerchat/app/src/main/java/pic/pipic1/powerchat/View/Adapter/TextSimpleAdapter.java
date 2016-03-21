@@ -121,4 +121,6 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         }
 
     }
+
+
 }
