@@ -26,7 +26,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
 
     private Context mContext;
 
-    public TextSimpleAdapter(Query ref, Context context){
+    public TextSimpleAdapter(Query ref, Context context) {
         super(MessageTextSimple.class, R.layout.activity_discussion_singlemessage, MessageTextSimpleHolder.class, ref);
         mContext = context;
     }
@@ -40,9 +40,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         chatView.setText(chat.getText());
         chatView.setPosition(chat.getLoc());
         chatView.setAuthor(chat.getName() + " à " + formatter_hour_min.format(chat.getDate()));
-        if(chat.getPhoto() != ""){
-            chatView.setImageView(chat.getPhoto());
-        }
+        chatView.setImageView(chat.getPhoto());
     }
 
     public static class MessageTextSimpleHolder extends RecyclerView.ViewHolder {
@@ -57,10 +55,11 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
             super(itemView);
             mAuthor = (TextView) itemView.findViewById(R.id.author_textview);
             mDate = (TextView) itemView.findViewById(R.id.dateSingleMessage);
-            mPosition = (TextView) itemView.findViewById(R.id.position_textview);;
+            mPosition = (TextView) itemView.findViewById(R.id.position_textview);
+            ;
             mText = (TextView) itemView.findViewById(R.id.message);
             mSeparator = itemView.findViewById(R.id.separator);
-            mImageView =(ImageView) itemView.findViewById(R.id.photoview);
+            mImageView = (ImageView) itemView.findViewById(R.id.photoview);
         }
 
 
@@ -75,7 +74,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
             mAuthor.setText(author);
         }
 
-        public void setPosition(String position){
+        public void setPosition(String position) {
             mPosition.setVisibility(View.VISIBLE);
             mPosition.setText(position);
         }
@@ -84,10 +83,23 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
             mText.setText(text);
         }
 
-        public  void setImageView(String image){
-            mImageView.setVisibility(View.VISIBLE);
-            byte[] decodedBytes = Base64.decode(image, 0);
-            mImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length));
+        public void setImageView(String image) {
+            if (!image.equals("")) {
+                mImageView.setVisibility(View.VISIBLE);
+                byte[] decodedBytes = Base64.decode(image, 0);
+                mImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length));
+            } else {
+                mImageView.setVisibility(View.GONE);
+            }
         }
     }
 }
+
+/*
+cheval
+velo
+poisson
+cahier
+brosse a dent
+ordinateur
+ */
