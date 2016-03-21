@@ -40,6 +40,7 @@ import com.google.android.gms.location.LocationServices;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import pic.pipic1.powerchat.Camera.CameraActivity;
 import pic.pipic1.powerchat.Location.Constants;
 import pic.pipic1.powerchat.Location.FetchAddressIntentService;
 import pic.pipic1.powerchat.Model.Message;
@@ -143,6 +144,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 }catch (Exception e){
                     photoString = "";
                 }
+                if(!mposition_check.isChecked()) mAddressOutput = "";
                 MessageTextSimple chat = new MessageTextSimple(name, uid, mMessageASend.getText().toString(), mAddressOutput,photoString);
 
                 mRef.push().setValue(chat, new Firebase.CompletionListener() {
@@ -167,8 +169,9 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         mphotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CameraActivity.class);
 
-                dispatchTakePictureIntent();
+                discussionActivity.startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         });
 
@@ -275,8 +278,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
 
     @Override
     public void onConnected(Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -352,10 +354,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
          */
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
-            if(mposition_check.isChecked()){
-                mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-            }
-            Log.i("PCLocation","mAdressesOutput : "+mAddressOutput);
+            mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
         }
     }
 
