@@ -82,7 +82,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
 
         public void setProp(boolean test, Context mContext){
             if(test){
-                mLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+                mLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorMyBubble));
             }else {
                  mLayout.setGravity(Gravity.LEFT);
                 mLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.bubbleColorBack));
