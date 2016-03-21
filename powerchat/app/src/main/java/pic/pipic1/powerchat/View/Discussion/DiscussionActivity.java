@@ -22,6 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -67,6 +68,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     private ImageButton mphotoButton;
     private ImageButton sendButton;
     private EditText mMessageASend;
+    private CheckBox mposition_check;
 
     // pour la location
     private AddressResultReceiver mResultReceiver;
@@ -74,6 +76,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     protected boolean mAddressRequested;
     protected GoogleApiClient mGoogleApiClient;
     protected String mAddressOutput;
+
 
     // pour la photo
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
@@ -92,6 +95,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         Log.i("PCidSujet", idSujet);
         sendButton = (ImageButton) findViewById(R.id.imageButton);
         mMessageASend = (EditText) findViewById(R.id.editText);
+        mposition_check = (CheckBox) findViewById(R.id.)
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(sujet.getTitre()+ " créer par " + sujet.getAuthor());
 
@@ -348,6 +352,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
          */
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
+            if()
             mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
             Log.i("PCLocation","mAdressesOutput : "+mAddressOutput);
         }
