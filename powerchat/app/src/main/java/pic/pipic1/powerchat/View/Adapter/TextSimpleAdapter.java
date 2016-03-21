@@ -4,15 +4,20 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.text.format.DateFormat;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -24,11 +29,12 @@ import pic.pipic1.powerchat.R;
  */
 public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple, TextSimpleAdapter.MessageTextSimpleHolder> {
 
-    private Context mContext;
+    private FirebaseLoginBaseActivity mContext;
 
-    public TextSimpleAdapter(Query ref, Context context) {
+    public TextSimpleAdapter(Query ref, FirebaseLoginBaseActivity context) {
         super(MessageTextSimple.class, R.layout.activity_discussion_singlemessage, MessageTextSimpleHolder.class, ref);
         mContext = context;
+
     }
 
     @Override
@@ -50,17 +56,19 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
         private TextView mText;
         private View mSeparator;
         private ImageView mImageView;
+        private LinearLayout mLayout;
 
         public MessageTextSimpleHolder(View itemView) {
             super(itemView);
             mAuthor = (TextView) itemView.findViewById(R.id.author_textview);
             mDate = (TextView) itemView.findViewById(R.id.dateSingleMessage);
             mPosition = (TextView) itemView.findViewById(R.id.position_textview);
-            ;
+            mLayout = (LinearLayout) itemView.findViewById(R.id.singleMessageLayout);
             mText = (TextView) itemView.findViewById(R.id.message);
             mSeparator = itemView.findViewById(R.id.separator);
             mImageView = (ImageView) itemView.findViewById(R.id.photoview);
         }
+
 
 
         public void setDate(String name) {
@@ -92,6 +100,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
                 mImageView.setVisibility(View.GONE);
             }
         }
+
     }
 }
 
