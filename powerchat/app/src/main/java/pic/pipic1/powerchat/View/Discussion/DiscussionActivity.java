@@ -50,6 +50,7 @@ import pic.pipic1.powerchat.View.Adapter.TextSimpleAdapter;
 public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int PERMISSION_CAMERA = 2;
     private DiscussionActivity discussionActivity = this;
 
     public static String TAG = "powerchat-iut.messages";
@@ -84,7 +85,6 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_discussion);
-
         sujet = (Sujet) getIntent().getSerializableExtra("Subject");
         idSujet = (String) getIntent().getSerializableExtra("idSujet");
         mRef = new Firebase("https://powerchat-iut.firebaseio.com/messages/" + idSujet);
@@ -163,6 +163,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         mphotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dispatchTakePictureIntent();
             }
         });
@@ -172,9 +173,16 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},REQUEST_IMAGE_CAPTURE);
+            if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                dispatchTakePictureIntent();
+        }else {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+
         }
     }
 

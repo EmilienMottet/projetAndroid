@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.text.format.DateFormat;
 import android.util.Base64;
 import android.view.Gravity;
@@ -37,6 +38,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
     public TextSimpleAdapter(Query ref, FirebaseLoginBaseActivity context) {
         super(MessageTextSimple.class, R.layout.activity_discussion_singlemessage, MessageTextSimpleHolder.class, ref);
         mContext = context;
+
     }
 
 
@@ -88,6 +90,7 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
             }
         }
 
+
         public void setDate(String name) {
             mDate.setText(name);
         }
@@ -117,5 +120,6 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
                 mImageView.setVisibility(View.GONE);
             }
         }
+
     }
 }
