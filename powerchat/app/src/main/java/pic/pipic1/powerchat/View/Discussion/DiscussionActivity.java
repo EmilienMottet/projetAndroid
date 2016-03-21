@@ -95,7 +95,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
         Log.i("PCidSujet", idSujet);
         sendButton = (ImageButton) findViewById(R.id.imageButton);
         mMessageASend = (EditText) findViewById(R.id.editText);
-        mposition_check = (CheckBox) findViewById(R.id.)
+        mposition_check = (CheckBox) findViewById(R.id.position_check);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(sujet.getTitre()+ " créer par " + sujet.getAuthor());
 
@@ -352,8 +352,9 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
          */
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
-            if()
-            mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            if(mposition_check.isChecked()){
+                mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            }
             Log.i("PCLocation","mAdressesOutput : "+mAddressOutput);
         }
     }
