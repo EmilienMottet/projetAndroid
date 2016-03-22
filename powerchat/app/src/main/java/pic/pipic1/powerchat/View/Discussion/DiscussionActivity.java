@@ -136,7 +136,7 @@ public class DiscussionActivity extends FirebaseLoginBaseActivity implements
                 String photoString = "";
                 try{
                     ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
-                    photo.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+                    photo.compress(Bitmap.CompressFormat.JPEG, 100, bYtE);
                     photo.recycle();
                     byte[] byteArray = bYtE.toByteArray();
                     photoString = Base64.encodeToString(byteArray, Base64.DEFAULT) ;

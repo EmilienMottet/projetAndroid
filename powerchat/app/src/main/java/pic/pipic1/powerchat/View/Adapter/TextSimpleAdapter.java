@@ -112,9 +112,13 @@ public class TextSimpleAdapter extends FirebaseRecyclerAdapter<MessageTextSimple
 
         public void setImageView(String image) {
             if (!image.equals("")) {
-                mImageView.setVisibility(View.VISIBLE);
-                byte[] decodedBytes = Base64.decode(image, 0);
-                mImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length));
+                try {
+                    mImageView.setVisibility(View.VISIBLE);
+                    byte[] decodedBytes = Base64.decode(image, 0);
+                    mImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length));
+                }catch (Exception e){
+                    mImageView.setVisibility(View.GONE);
+                }
             } else {
                 mImageView.setVisibility(View.GONE);
             }
