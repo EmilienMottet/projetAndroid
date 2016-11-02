@@ -59,7 +59,7 @@ public class TopicDialog extends DialogFragment {
                 mainTopicListActivity.getRef().push().setValue(s);
                 mainTopicListActivity.invalidateOptionsMenu();
                 mainTopicListActivity.getListTopicFragment().getmAdapter().notifyDataSetChanged();
-        //        mainTopicListActivity.getRef().push().getKey()
+                //        mainTopicListActivity.getRef().push().getKey()
                 // quitter l'activ la c'est galere car c'est pas une activité mais un fragment
                 getDialog().dismiss();
             }
@@ -91,3 +91,4 @@ public class TopicDialog extends DialogFragment {
     }
 
 }
+
